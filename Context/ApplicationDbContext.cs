@@ -1,22 +1,34 @@
 ﻿using AfiliadosAPI.Models;
+using AfiliadosAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace AfiliadosAPI.Context;
-
-public class ApplicationDbContext : DbContext
+namespace AfiliadosAPI.Context
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    public class ApplicationDbContext : DbContext
     {
-    }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
 
-    public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
-    // Defina outras DbSets para outras entidades, se necessário
+        public DbSet<Seller> Sellers { get; set; }
+        
+        public DbSet<Afiliate> Afiliates { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        // Configurações de mapeamento das entidades para tabelas, chaves primárias, índices, etc.
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.Seller)
+                .WithMany(s => s.Sales)
+                .HasForeignKey(t => t.SellerId);
 
-        base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.Afiliate)
+                .WithMany(a => a.ReceivedCommissions)
+                .HasForeignKey(t => t.AfiliateId);
+            
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
