@@ -1,6 +1,6 @@
 ﻿namespace AfiliadosAPI.Models;
 
-public enum TipoTransacao
+public enum TypeTransaction
 {
     VendaProdutor = 1,
     VendaAfiliado = 2,
@@ -11,7 +11,7 @@ public enum TipoTransacao
 public class Transaction
 {
     public int Id { get; set; }
-    public TipoTransacao Tipo { get; set; }
+    public TypeTransaction Tipo { get; set; }
     public DateTime Data { get; set; }
     public string Produto { get; set; }
     public decimal Valor { get; set; }
