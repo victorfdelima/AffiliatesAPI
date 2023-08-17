@@ -21,6 +21,23 @@
       <Compile Update="TestsUnits\Properties\AssemblyInfo.cs">
         <Link>TestProject1\Properties\AssemblyInfo.cs</Link>
       </Compile>
+      <Compile Remove="packages\**" />
+      <Compile Remove="TestProject1\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="packages\**" />
+      <EmbeddedResource Remove="TestProject1\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="packages\**" />
+      <Content Remove="TestProject1\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="packages\**" />
+      <None Remove="TestProject1\**" />
     </ItemGroup>
 
 </Project>
