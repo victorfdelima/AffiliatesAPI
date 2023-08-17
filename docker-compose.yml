@@ -1,0 +1,6 @@
+﻿services:
+  afiliadosapi:
+    image: afiliadosapi
+    build:
+      context: .
+      dockerfile: Dockerfile
