@@ -8,6 +8,10 @@ public enum TypeTransaction
     VendaProdutor = 1,
     
     VendaAfiliado = 2,
+    
+    ComissaoPaga = 3,
+    
+    ComissaoRecebida = 4,
 }
 
 public class Transaction
