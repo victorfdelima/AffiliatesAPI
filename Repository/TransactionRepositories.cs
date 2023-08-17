@@ -23,12 +23,6 @@ public abstract class TransactionRepositories
         _context.SaveChanges();
     }
     
-    public async Task UpdateAsync(Seller seller)
-    {
-        _context.Sellers.Update(seller);
-        await _context.SaveChangesAsync();
-    }
-    
     public async Task AddAsync(Transaction transaction)
     {
         _context.Transactions.Add(transaction);

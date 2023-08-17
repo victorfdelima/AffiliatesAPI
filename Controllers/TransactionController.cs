@@ -15,13 +15,13 @@ public class TransactionController : ControllerBase
         _transactionService = transactionService;
     }
 
-    [HttpPost("process")]
-    public IActionResult ProcessTransactions([FromBody] List<Transaction> transactions)
+    [HttpGet("all")]
+    public IActionResult GetAllTransactions()
     {
-        _transactionService.TransactionProcess(transactions);
-        return Ok();
+        var transactions = _transactionService.GetAll();
+        return Ok(transactions);
     }
-    
+
     [HttpPost("upload")]
     public async Task<IActionResult> UploadTransactions([FromForm] IFormFile? file)
     {

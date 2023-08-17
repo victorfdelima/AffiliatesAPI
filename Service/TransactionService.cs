@@ -9,15 +9,20 @@ namespace AfiliadosAPI.Service;
 public class TransactionService
 {
     private readonly TransactionRepositories _transactionRepository;
-    private readonly IAfiliateRepository _afiliateRepository;
-    private readonly ISellerRepository _sellerRepository;
+    private readonly AfiliateRepositories _afiliateRepository;
+    private readonly SellerRepositories _sellerRepository;
+    private readonly ISellerRepository _isellerRepository;
+    private readonly IAfiliateRepository _iAfiliateRepository;
 
-    public TransactionService(TransactionRepositories transactionRepository, IAfiliateRepository afiliateRepository,
-        ISellerRepository sellerRepository)
+
+    public TransactionService(TransactionRepositories transactionRepository, AfiliateRepositories afiliateRepository,
+        SellerRepositories sellerRepository, ISellerRepository isellerRepository, IAfiliateRepository iAfiliateRepository)
     {
         _transactionRepository = transactionRepository;
         _sellerRepository = sellerRepository;
         _afiliateRepository = afiliateRepository;
+        _isellerRepository = isellerRepository;
+        _iAfiliateRepository = iAfiliateRepository;
     }
 
     public void TransactionProcess(List<Transaction> transactions)
@@ -41,7 +46,7 @@ public class TransactionService
                     if (fields != null && fields[1].Contains("SALEANDCOMISSION"))
                     {
                         var sellerName = fields[3];
-                        var seller = await _sellerRepository.GetByNameAsync(sellerName);
+                        var seller = await _isellerRepository.GetByNameAsync(sellerName);
 
                         if (seller == null)
                         {
@@ -70,7 +75,7 @@ public class TransactionService
                     else // Venda de afiliados
                     {
                         var afiliateName = fields?[3];
-                        var afiliate = await _afiliateRepository.GetByNameAsync(afiliateName);
+                        var afiliate = await _iAfiliateRepository.GetByNameAsync(afiliateName);
 
                         if (afiliate == null)
                         {
