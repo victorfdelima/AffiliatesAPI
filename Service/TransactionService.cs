@@ -63,6 +63,7 @@ public class TransactionService
                         );
 
                         seller.Balance += transaction.Valor;
+                        transaction.Seller.Balance = Convert.ToDecimal(TypeTransaction.ComissaoPaga);
                         await _transactionRepository.AddAsync(transaction);
                         await _sellerRepository.UpdateAsync(seller);
                     }
@@ -91,6 +92,7 @@ public class TransactionService
                         );
 
                         afiliate.Balance += transaction.Valor * 0.1m; // Comissão de 10%
+                        transaction.Afiliate.Balance = Convert.ToDecimal(TypeTransaction.ComissaoRecebida);
                         transaction.AfiliateId = afiliate.Id;
                         transaction.Afiliate = afiliate;
 
