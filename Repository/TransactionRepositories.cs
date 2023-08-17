@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using AfiliadosAPI.Context;
+using AfiliadosAPI.Interfaces;
+using AfiliadosAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace AfiliadosAPI.Repository;
 
-public class TransactionRepositories
+public abstract class TransactionRepositories
 {
     private readonly ApplicationDbContext _context;
 
-    public TransactionRepositories(ApplicationDbContext context)
+    protected TransactionRepositories(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -19,6 +21,18 @@ public class TransactionRepositories
     {
         _context.Transactions.Add(transaction);
         _context.SaveChanges();
+    }
+    
+    public async Task UpdateAsync(Seller seller)
+    {
+        _context.Sellers.Update(seller);
+        await _context.SaveChangesAsync();
+    }
+    
+    public async Task AddAsync(Transaction transaction)
+    {
+        _context.Transactions.Add(transaction);
+        await _context.SaveChangesAsync();
     }
 
     public List<Transaction> GetTransactions()
